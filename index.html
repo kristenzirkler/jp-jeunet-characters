@@ -8,4 +8,81 @@ meta-title: Home
 meta-description: Home page.
 ---
 
-Home Page
+<div class="jp-jeunet">
+    <div class="intro">
+      <img src="img/jp-jeunet.jpg"/>
+      <div class="title">
+        <h1><em>The Characters of </em><span>Jean-Pierre <strong>Jeunet</strong></h1>
+      </div>
+    </div><!-- .intro -->
+
+    <div class="controls">
+      <div class="control">
+        <div class="title">Filter:</div>
+        <div class="filters">
+          <div class="dropdown movie-filters">
+            <label><i class="icon-down-open toggle"></i>Movie</label>
+            <div class="options">
+    {% for movie in site.data.movies %}
+              <button class="filter filter-{{ movie.shortname }}" data-filter=".category-{{ movie.shortname }}">{{ movie.title }}</button>
+    {% endfor %}
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <label><i class="icon-down-open toggle"></i>Actor</label>
+            <div class="options">
+              <button class="filter" data-filter=".type-bill-murray">Bill Murray</button>
+              <button class="filter" data-filter=".type-jason-schwartzman">Jason Schwartzman</button>
+              <button class="filter" data-filter=".type-owen-wilson">Owen Wilson</button>
+              <button class="filter" data-filter=".type-anjelica-huston">Anjelica Huston</button>
+              <button class="filter" data-filter=".type-kumar-pallana">Kumar Pallana</button>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <label><i class="icon-down-open toggle"></i> <i class="icon-female"></i> <i class="icon-male"></i></label>
+            <div class="options">
+              <button class="filter" data-filter=".gender-F">Ladies</button>
+              <button class="filter" data-filter=".gender-M">Gents</button>
+            </div>
+          </div>
+        </div>
+        <div class="sort">
+          <div class="filter filter-name" data-filter="all" id="filter-name"></div>
+          <!--button class="">All Characters</button-->
+          <!--button class="sort" data-sort="myorder:asc"><i class="fa fa-sort-amount-asc"></i></button>
+          <button class="sort" data-sort="myorder:desc"><i class="fa fa-sort-amount-desc"></i></button-->
+        </div>
+      </div>
+    </div><!-- .controls -->
+
+    <div id="ItemList" class="container">
+    {% for character in site.data.characters %}
+        <div class="mix type-{{ character.shortname }} category-{{ character.movieshort }} gender-{{ character.gender }}" data-movie="{{ character.movieshort }}" data-myorder="{{ character.order }}">
+            <span class="photo" style="background-image: url(img/wes-char-{{ character.photo }}.jpg);"></span>
+            <span class="name">{{ character.name }}</span>
+            <span class="type">{{ character.actor }}</span>
+            <span class="category">{{ character.movie }}</span>
+            <span class="count"><em>{{ character.moveicount }}</em></span>
+        </div>
+    {% endfor %}
+    </div>
+
+    <div class="movies">
+    {% for movie in site.data.movies %}
+        <div class="movie movie-{{ movie.shortname }}" data-video="{{ movie.videoid }}">
+            <div class="content">
+                <h3>{{ movie.title }}</h3>
+                <em>{{ movie.year }}</em>
+                <p>
+                    {{ movie.blurb }}<br>
+                    <a target="_blank" class="imdb" href="{{ movie.imdb }}">IMDB</a>
+                    <a target="_blank" class="wiki" href="{{ movie.wiki }}">Wiki</a>
+                </p>
+                <iframe width="100%" height="360" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>

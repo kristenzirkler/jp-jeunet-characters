@@ -1,0 +1,151 @@
+@mixin filter-design($color) {
+  &:before {
+    background: $color;
+  }
+  &:hover {
+    background: rgba($color,.2);
+  }
+}
+
+.controls {
+  .control {
+    background: rgba($controls-color,.9);
+    color: #333;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+      width: 100%;
+    }
+  }
+  .title {
+    line-height: $button-height;
+    text-transform: uppercase;
+    padding: 0 15px;
+    text-align: center;
+  }
+  button {
+    line-height: $button-height;
+    
+    margin: 0;
+    border: 0;
+    cursor: pointer;
+    font-size: .9em;
+
+    &:focus {
+      outline: 0 none;
+    }
+    
+  }
+}
+.filter-name {
+  padding: 5px;
+  clear: both;
+  color: #333;
+  display: none;
+  cursor: pointer;
+  border-top: 1px solid #ccc;
+  i {
+    float: left;
+    margin-right: 5px;
+    width: 20px;
+    text-align: center;
+  }
+  &:hover {
+    background: #ccc;
+  }
+}
+
+@for $i from 1 through length($category-list) {
+  .filter-#{nth($category-list, $i)} {
+    @include filter-design(nth($category-vars-list, $i));
+  }
+}
+.movie-filters .filter {
+  &:before {
+    content: ' ';
+    border-radius: 50%;
+    width: $button-height/3;
+    height: $button-height/3;
+    display: block;
+    float: left;
+    margin-top: $button-height/2 - ($button-height/3)/2;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.dropdown {
+  position: relative;
+  height: $button-height;
+  width: 100%;
+
+  label {
+    padding: 0 15px;
+    font-size: 1.3em;
+    line-height: $button-height - 1;
+    display: block;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-left: 1px solid #ccc;
+    .toggle {
+      float: right;
+      line-height: $button-height - 1;
+    }
+    &.open, &:hover {
+      background: $controls-color;
+    }
+  }
+  .options {
+    position: absolute;
+    top: $button-height;
+    z-index: 16;
+    width: 100%;
+    display: none;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-right: none;
+    background: rgba($controls-color,.95);
+  }
+  button {
+    display: block;
+    text-align: left;
+    width: 100%;
+    background: transparent;
+  }
+  &.active {
+    label {
+      background: $controls-color;
+    }
+    .options {
+      display: block;
+    }
+  }
+}
+/* Responsive Page Layout */
+
+@media all and (min-width: 420px) {
+  
+}
+
+@media all and (min-width: 800px) {
+
+  .controls {
+    .title {
+      float: left;
+      width: 80px;
+    }
+  }
+  .filters {
+    float: left;
+    width: calc(100% - 80px);
+  }
+  .dropdown {
+    width: 33.3%;
+    float: left;
+  }
+
+
+}

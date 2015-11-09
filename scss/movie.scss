@@ -1,0 +1,129 @@
+
+@mixin movie-design($color) {
+
+  background: rgba($color,.9);
+  .content {
+    border-color: $color;
+    box-shadow: 0 0 50px darken($color,10);
+  }
+  em {
+    background: $color;
+  }
+  iframe {
+    border-top: 4px solid $color;
+  }
+}
+@mixin grayscale($amount) {
+-webkit-filter: grayscale($amount);
+-moz-filter: grayscale($amount);
+filter: grayscale($amount);
+}
+.movies {
+  .movie {
+    display: none;
+    cursor: pointer;
+
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    z-index: 20;
+    
+    @for $i from 1 through length($category-list) {
+      &.movie-#{nth($category-list, $i)} {
+        @include movie-design(nth($category-vars-list, $i));
+      }
+    }
+    .content {
+      background: #fff;
+      max-width: 680px;
+      height: 440px;
+      border-width: 10px;
+      border-style: solid;
+      position: fixed;
+      top: 0; bottom: 0;
+      left: 0; right: 0;
+      text-align: center;
+    }
+    h3 {
+      font-size: 1.5em;
+      padding: 20px 10px 10px;
+    }
+    p {
+      font-size: .9em;
+      line-height: 1.3em;
+      padding: 0 20px 20px;
+    }
+    em {
+      color: #fff;
+      font-size: 12px;
+      position: absolute;
+      left: 50%;
+      line-height: 30px;
+      margin-left: -40px;
+      width: 80px;
+      z-index: 2;
+      bottom: 180px - 15px - 2px;
+    }
+    iframe {
+      height: 180px; 
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+  }
+}
+.imdb, .wiki {
+  width: 54px;
+  height: 26px;
+  display: inline-block;
+  margin: 1em 1em 0;
+  text-indent: -5000px;
+  @include grayscale(100%);
+  opacity: .5;
+  transition: all .5s;
+  &:hover {
+    @include grayscale(0%);
+    opacity: 1;
+  }
+}
+.imdb {
+  background-image: url(../img/imdb.png);
+}
+.wiki {
+  background-image: url(../img/wiki.png);
+}
+/* Responsive Page Layout */
+
+@media all and (min-width: 680px) {
+  
+.movies {
+  .movie {
+    .content {
+      height: 600px;
+      margin: auto;
+	}
+    h3 {
+      font-size: 2em;
+      padding: 40px 20px 20px;
+    }
+    p {
+      line-height: 1.5em;
+      padding: 0 40px 40px;
+    }
+    em {
+      bottom: 360px - 15px - 2px;
+    }
+    iframe {
+    	height:360px;
+    }
+
+  }
+}
+
+}
+
+@media all and (min-width: 800px) {
+
+
+}

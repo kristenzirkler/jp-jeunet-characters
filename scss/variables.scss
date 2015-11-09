@@ -21,6 +21,28 @@ $page-size: 960px;
 $desktop-side-space: 20px;
 $mobile-side-space: 30px;
 
+$page-background: #fff;
+$page-accent: #e7be0e;
+
+$bottle: #e52e32;
+$rushmore: #123670;
+$royal: #ae743e;
+$lifeaquatic: #3fb1d1;
+$darjeeling: #009084;
+$mrfox: #d6621d;
+$moonrise: #e7be0e;
+$budapest: #553562;
+
+$category-list: bottle, rushmore, royal, lifeaquatic, darjeeling, mrfox, moonrise, budapest;
+$category-vars-list: $bottle, $rushmore, $royal, $lifeaquatic, $darjeeling, $mrfox, $moonrise, $budapest;
+
+$accent-font: 'Grand Hotel', sans-serif;
+$controls-color: #fff;
+$button-height: 45px;
+$button-highlight: $controls-color;
+
+$intro-height: 40vh;
+
 @mixin transition($transitions) {
     -webkit-transition: $transitions;
     -moz-transition: $transitions;

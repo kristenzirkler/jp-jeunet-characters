@@ -1,82 +1,22 @@
 $nav-height: 60px;
 $footer-height: 50px;
 
-body {
-	margin-top: $nav-height;
+@mixin tile-design($color) {
+
+  background: $color;
+
+  .name {
+    background: rgba($color,.9);
+  }
+  .count em {
+    color: $color;
+  }
+  &:hover, &:active {
+    .name {
+      background: none;
+    }
+  }
 }
-
-.site-navigation {
-	@include transition(all 1s);
-	background: #fff;
-	box-shadow: 0 0 10px rgba(#000,.3);
-
-	position: fixed;
-	top: 0; left: 0; right: 0;
-	z-index: 100;
-	a {
-		color: $main-color;
-	}
-	.logo {
-		display: inline-block;
-		float: left;
-		margin: 8px 10px 0;
-		//line-height: $nav-height;
-		//font-family: $accent-font;
-		//text-transform: uppercase;
-		//font-size: 1.5em;
-		img {
-			width: 200px;
-		}
-	}
-	.mobile-toggle {
-		float: right;
-		border: 1px solid $main-color;
-		display: inline-block;
-		margin: 5px 10px;
-		border-radius: 50%;
-		width: $nav-height - 10;
-		height: $nav-height - 10;
-		text-align: center;
-		i {
-			padding: 0 .5em;
-			font-size: 1.3em;
-			line-height: $nav-height - 10;
-		}
-	}
-	ul {
-		display: block;
-		clear: both;
-		text-align: center;
-		display: none;
-		@include transition(all 1s);
-	}
-	li {
-		font-size: 1.1em;
-		font-family: $accent-font;
-		line-height: $nav-height;
-		border-top: 1px solid $gray-lightest;
-	}
-}
-.footer {
-	background: $main-color;
-	color: #fff;
-	overflow: hidden;
-
-	a {
-		color: #fff;
-	}
-	.logo {
-		display: inline-block;
-		float: left;
-		margin: 0 20px;
-		line-height: $nav-height;
-		font-family: $accent-font;
-		text-transform: uppercase;
-		font-size: 1.5em;
-	}
-}
-
-
 
 .hide {
 	opacity: 0;
@@ -85,36 +25,269 @@ body {
 	opacity: 1;
 }
 
-// Responsive
-@media all and (min-width: 420px) {
-// Tablet & Up
+.intro {
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  height: $intro-height;
+  .title {
+    position: relative;
+    z-index: 2;
+    padding: 15vh 4vw 0;
+    text-align: center;
+  }
+  img {
+    height: $intro-height;
+    position: absolute;
+    z-index: 1;
+    top:0;
+    right:0;
+  }
+  h1 {
+    font-size: 5.5vh;
+    color: #fff;
+    em {
+      font-size: .6em;
+      margin-bottom: 10px;
+      font-family: $accent-font;
+      display: block;
+    }
+    strong {
+      text-transform: uppercase;
+    }
+  }
+  .bg {
+    position: absolute;
+    background-position: center center;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    background-size: cover;
+    opacity: .5;
+    z-index: 1;
+  }
+}
 
-// End Tablet & Up
+.container {
+  padding: 1vw 1vw 0;
+  text-align: justify;
+  -webkit-backface-visibility: hidden;
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+  }
+  .mix {
+    display: none;
+    cursor: pointer;
+
+    text-align: center;
+    background: #333;
+    color: #fff;
+    position: relative;
+
+    @for $i from 1 through length($category-list) {
+      &.category-#{nth($category-list, $i)} {
+        @include tile-design(nth($category-vars-list, $i));
+      }
+    }
+    span, .photo {
+      position: absolute;
+      display: block;
+      text-align: center;
+    }
+    .name {
+      bottom: 0px;
+      width: 100%;
+      font-size: .8em;
+      padding: 1em 3px;
+      text-transform: uppercase;
+      font-weight: bold;
+      transition: all .5s;
+      z-index: 2;
+    }
+    .category, .type {
+      position: absolute;
+      width: 100%;
+      text-transform: uppercase;
+      opacity: 0;
+      z-index: 3;
+      padding: 0 1em;
+      font-size:.9em;
+    }
+    .type:after, .category:before {
+        width: 24px;
+
+        left: 50%;
+        margin-left: -12px;
+
+        font-family: $accent-font;
+        position: absolute;
+        text-transform: none;
+        font-size: 13px;
+        font-weight: normal;
+    }
+    .type {
+      bottom: 115px;
+      &:after {
+        content: 'as';
+        bottom: -18px;
+      }
+    }
+    .category {
+      bottom: 18px;
+      &:before {
+        content: 'in';
+        top: -23px;
+        
+      }
+    }
+    .photo {
+      top: 0; bottom: 0;
+      left: 0; right: 0;
+      overflow: hidden;
+      z-index: 2;
+      transition: all .5s;
+      background-size: cover;
+    }
+    .count {
+      border-color: rgba(#fff,.7) rgba(#fff,.7) transparent;
+      border-width: 45px 15px 15px;
+      border-style: solid;
+      height: 0;
+      width: 0;
+      
+      display: block;
+      opacity: 0;
+      
+      position: absolute;
+      top: 0;
+      right: 10px;
+      z-index: 5;
+      
+      transition: all .8s;
+      em {
+        font-size: 14px;
+        color: white;
+        width: 30px;
+        text-align: center;
+        display: block;
+        position: absolute;
+        top: -35px;
+        left: -15px;
+        &:before {
+          content: '\f007';
+          font: normal normal normal 10px/1 FontAwesome;
+          margin-bottom: 3px;
+          display: block;
+        }
+      }
+    }
+    &:hover {
+      .type, .category {
+        opacity: 1;
+        transition: all 1.5s;
+      }
+      .name {
+        bottom: 45px;
+        font-size: 1.3em;
+      }
+      .photo {
+        opacity: .2;
+      }
+      .count {
+        opacity: 1;
+      }
+    }
+  }
+}
+.site-design {
+  background: #e5e5e5;
+  color: #666;
+  padding: 40px;
+  a {
+    display: block;
+    color: #666;
+    &:hover {
+      color: #000;
+    }
+  }
+  .why-wes {
+    width: 40vw;
+  }
+  p {
+    line-height: 1.5em;
+    margin-bottom: 1.5em;
+  }
+  .button {
+    display: block;
+    padding: 1em;
+    text-align: center;
+    background: #333;
+    color: #fff;
+    margin: 1em 0;
+    text-transform: uppercase;
+    &:hover {
+      background: #000;
+      color: #fff;
+    }
+  }
+  .made-in-az {
+    float: right;
+    width: 230px;
+    padding-right: 100px;
+    position: relative;
+    span {
+      margin-top: 20px;
+      line-height: 1.5em;
+      display: block;
+    }
+    &:hover {
+      .icon-arizona {
+        color: #e13c3b;
+      }
+      .icon-heart-empty {
+        color: #fff;
+      }
+    }
+  }
+  .icon-heart-empty {
+    color: #ccc;
+    position: absolute;
+    font-size: 30px;
+    top: 26px;
+    right: 21px;
+  }
+  .icon-arizona {
+    color: #999;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 80px;
+  }
+}
+/* Responsive Page Layout */
+.container {
+  .mix, .gap {
+    float: left;
+    width: 96vw;
+    height: 96vw;
+    margin: 1vw;
+  }
+}
+@media all and (min-width: 420px) {
+  .container {
+    .mix, .gap {
+      width: 47vw;
+      height: 47vw;
+    }
+  }
 }
 
 @media all and (min-width: 800px) {
-// Desktop & Up
-
-	.site-navigation {
-		.mobile-toggle {
-			display: none;
-		}
-		.nav {
-			display: inline-block;
-			clear: none;
-
-			float: right;
-			overflow: hidden;
-			line-height: $nav-height;
-			margin: 0 20px;
-			li {
-				display: inline-block;
-				margin: 0 .5em;
-				border-top: none;
-			}
-
-		}
-	}
-
-// End Desktop & Up
+  .container {
+    .mix, .gap {
+      width: 30.1vw;
+      height: 30.1vw;
+    }
+  }
 }
