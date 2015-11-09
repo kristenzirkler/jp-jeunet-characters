@@ -1,0 +1,10 @@
+highlighter: pygments
+github: [Repository metadata]
+
+baseurl: "http://kristenzirkler.github.io/jp-jeunet-characters"
+
+# Sass
+sass:
+  sass_dir: scss
+  style: :expanded
+  line_numbers: true

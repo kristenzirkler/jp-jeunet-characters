@@ -1,0 +1,1 @@
+$(function(){$(".mobile-toggle").click(function(n){n.preventDefault(),$(".nav").toggleClass("nav-open")})});
