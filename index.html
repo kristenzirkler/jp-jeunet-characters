@@ -23,9 +23,9 @@ meta-description: Home page.
           <div class="dropdown movie-filters">
             <label><i class="icon-down-open toggle"></i>Movie</label>
             <div class="options">
-    {% for movie in site.data.movies %}
+{% for movie in site.data.movies %}
               <button class="filter filter-{{ movie.shortname }}" data-filter=".category-{{ movie.shortname }}">{{ movie.title }}</button>
-    {% endfor %}
+{% endfor %}
             </div>
           </div>
 
@@ -58,19 +58,21 @@ meta-description: Home page.
     </div><!-- .controls -->
 
     <div id="ItemList" class="container">
-    {% for character in site.data.characters %}
+{% for character in site.data.characters %}
+  {% if character.hasphoto == '1' %}
         <div class="mix type-{{ character.shortname }} category-{{ character.movieshort }} gender-{{ character.gender }}" data-movie="{{ character.movieshort }}" data-myorder="{{ character.order }}">
-            <span class="photo" style="background-image: url(img/wes-char-{{ character.photo }}.jpg);"></span>
+            <span class="photo" style="background-image: url({{ site.baseurl }}/img/char-{{ character.photo }}.jpg);"></span>
             <span class="name">{{ character.name }}</span>
             <span class="type">{{ character.actor }}</span>
             <span class="category">{{ character.movie }}</span>
-            <span class="count"><em>{{ character.moveicount }}</em></span>
+            <span class="count"><em>{{ character.moviecount }}</em></span>
         </div>
-    {% endfor %}
+  {% endif %}
+{% endfor %}
     </div>
 
     <div class="movies">
-    {% for movie in site.data.movies %}
+{% for movie in site.data.movies %}
         <div class="movie movie-{{ movie.shortname }}" data-video="{{ movie.videoid }}">
             <div class="content">
                 <h3>{{ movie.title }}</h3>
@@ -83,6 +85,6 @@ meta-description: Home page.
                 <iframe width="100%" height="360" src="" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
-    {% endfor %}
+{% endfor %}
     </div>
 </div>
